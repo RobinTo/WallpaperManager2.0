@@ -1,0 +1,105 @@
+
+.wallpaper{
+  margin: 14px;
+  width: 20%;
+  border: 2px solid white;
+}
+
+.settingsDiv{
+  padding: 12px;
+  background: #373737;
+  z-index: 1055;
+  width: 80%;
+  height: 90%;
+  border: 5px solid gray;
+  position: fixed;
+  margin: 5% auto;
+  left: 0;
+  top: 0;
+  right: 0;
+}
+
+.settingsDiv hr{
+  border: 0;
+  height: 1px;
+  background: white;
+}
+
+.settingsButton{
+  font-family: dinMedium;
+  background: #202020;
+  color: white;
+  width: 50px;
+  height: 20px;
+  border: 1px solid black;
+  border-radius: 4px;
+  text-align: center;
+  margin: 4px;
+}
+
+input[type="checkbox"]{
+  display: none;
+}
+
+label{
+  line-height: 51px;
+
+}
+input[type="checkbox"] + label span{
+  vertical-align: bottom;
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  background: white;
+  margin-bottom: 12px;
+  margin-right: 4px;
+}
+
+input[type="checkbox"]:checked + label span{
+  background: black;
+}
+
+.fadebg{
+  z-index:1054;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: black;
+  opacity: 0.5;
+}
+
+.fullWallpaper{
+  z-index: 1055;
+  max-width: 95%;
+  max-height: 80%;
+  position: fixed;
+  margin: 5% auto;
+  left: 0;
+  top: 0;
+  right: 0;
+  border: 5px solid gray;
+}
+
+.wallpaper:hover{
+    border-color: gray;
+}
+
+@media only screen and (min-width: 1280px){
+  .fullWallpaper{
+    max-width: 1280px;
+  }
+  .wallpaper{
+    width: 13%;
+  }
+}
+
+@media only screen and (min-width: 1920px){
+  .fullWallpaper{
+    max-width: 1920px;
+  }
+  .wallpaper{
+    width: 8%;
+  }
+}
