@@ -84,6 +84,29 @@ input[type="checkbox"]:checked + label span{
   right: 0;
   border: 5px solid gray;
 }
+.fullWallpaperInfo{
+  z-index: 1056;
+  max-width: 95%;
+  background: gray;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-left: 5px solid gray;
+  border-right: 5px solid gray;
+  height: 5%;
+  text-align: center;
+  font-size: 16px;
+  color: darkgray; 
+  max-height: 60px;
+  margin: 0px auto;
+  border-bottom: 1px solid black;
+}
+.fullWallpaperInfo .title{
+  font-family: dinMedium;
+  color: black;
+  font-size: 24px;
+}
 
 .wallpaper:hover{
     border-color: gray;

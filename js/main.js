@@ -146,8 +146,22 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   $(document).on('click', '.wallpaper', function(){
+    var src = $(this).attr('src');
+    var title = src.split('\\');
+    console.log(src);
+    console.log(title);
+    title = title[title.length-1];
     $('#content').append(jqoc.createFadedBg());
-    $('#content').append(jqoc.createImage($(this).attr('src'), 'fullWallpaper popup'));
+    $('#content').append(jqoc.createImage(src, 'fullWallpaper popup'));
+    $('#content').append(jqoc.createWallpaperInfo(title, settings.createDimensionString(settings.sizeOfWallpaper(src))));
+    var margin = (($('.fullWallpaper').outerHeight(true) - $('.fullWallpaper').innerHeight())/2),
+      borderWidth = parseInt($('.fullWallpaper').css("border-width"), 10);
+      console.log(borderWidth);
+
+    $('.fullWallpaperInfo').css('top', $('.fullWallpaper').position().top+$('.fullWallpaper').innerHeight() + margin + borderWidth)
+    $('.fullWallpaperInfo').css('line-height', $('.fullWallpaperInfo').innerHeight() + 'px');
+    $('.fullWallpaperInfo').css('width', $('.fullWallpaper').innerWidth());
+
   });
 
   $(document).on('click', '.fadebg', function(){
@@ -157,6 +171,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
   $(document).on('click', '.fullWallpaper', function(){
     splitSrcAndSetWallpaper($(this).attr('src'));
+  });
+
+  $(window).on('resize', function(){
+    if($('.fullWallpaper').length > 0){
+      var margin = (($('.fullWallpaper').outerHeight(true) - $('.fullWallpaper').innerHeight())/2);
+      $('.fullWallpaperInfo').css('top', $('.fullWallpaper').position().top+$('.fullWallpaper').innerHeight() + margin)
+    }
+
   });
 
   loadLocalWallpapers();
