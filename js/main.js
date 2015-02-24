@@ -3,7 +3,7 @@ var scraper = require('scraper');
 var file = require('File');
 var fs = require('fs');
 var jqoc = require('jqoc')($);
-
+var placer = require('placer')($);
 var settings = require('settings');
 
 console.log(settings.localImg);
@@ -138,6 +138,10 @@ document.addEventListener("DOMContentLoaded", function() {
     window.close();
   });
 
+  $(document).on('click', '.setWallpaperButton', function(){
+    splitSrcAndSetWallpaper($('.fullWallpaper').attr('src'));
+  });
+
   $(document).on('click', '#settingsx', function(){
     $('#content').append(jqoc.createFadedBg());
     var settingsWindow = jqoc.createSettingsWindow(settings.getOptions(), settings.getDimensions());
@@ -154,11 +158,9 @@ document.addEventListener("DOMContentLoaded", function() {
     $('#content').append(jqoc.createFadedBg());
     $('#content').append(jqoc.createImage(src, 'fullWallpaper popup'));
     $('#content').append(jqoc.createWallpaperInfo(title, settings.createDimensionString(settings.sizeOfWallpaper(src))));
-    var margin = (($('.fullWallpaper').outerHeight(true) - $('.fullWallpaper').innerHeight())/2),
-      borderWidth = parseInt($('.fullWallpaper').css("border-width"), 10);
-      console.log(borderWidth);
 
-    $('.fullWallpaperInfo').css('top', $('.fullWallpaper').position().top+$('.fullWallpaper').innerHeight() + margin + borderWidth)
+
+    $('.fullWallpaperInfo').css('top', placer.getBottomOfElement($('.fullWallpaper'), true));
     $('.fullWallpaperInfo').css('line-height', $('.fullWallpaperInfo').innerHeight() + 'px');
     $('.fullWallpaperInfo').css('width', $('.fullWallpaper').innerWidth());
 
@@ -175,10 +177,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
   $(window).on('resize', function(){
     if($('.fullWallpaper').length > 0){
-      var margin = (($('.fullWallpaper').outerHeight(true) - $('.fullWallpaper').innerHeight())/2);
-      $('.fullWallpaperInfo').css('top', $('.fullWallpaper').position().top+$('.fullWallpaper').innerHeight() + margin)
+      $('.fullWallpaperInfo').css('top', placer.getBottomOfElement($('.fullWallpaper'), true));
+      $('.fullWallpaperInfo').css('width', $('.fullWallpaper').innerWidth());
     }
-
   });
 
   loadLocalWallpapers();

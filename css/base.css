@@ -14,7 +14,6 @@
 *{
   font-family: dinRegular;
   font-size: 12px;
-  line-height: 12px;
 }
 
 body{
@@ -109,6 +108,10 @@ body{
 	background-size: 13px 13px;
 	background-repeat: no-repeat;
 	background-position: center;
+}
+
+.rightAlign{
+	float: right;
 }
 
 input{

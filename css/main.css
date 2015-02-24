@@ -95,7 +95,6 @@ input[type="checkbox"]:checked + label span{
   border-left: 5px solid gray;
   border-right: 5px solid gray;
   height: 5%;
-  text-align: center;
   font-size: 16px;
   color: darkgray; 
   max-height: 60px;
@@ -110,6 +109,15 @@ input[type="checkbox"]:checked + label span{
 
 .wallpaper:hover{
     border-color: gray;
+}
+
+button{
+  background-color: #323232;
+  color: lightgray;
+  font-family: dinMedium;
+  border-radius: 5px;
+  border: 1px solid lightgray;
+  padding: 5px;
 }
 
 @media only screen and (min-width: 1280px){
