@@ -6,12 +6,10 @@ var jqoc = require('jqoc')($);
 var placer = require('placer')($);
 var settings = require('settings');
 
-console.log(settings.localImg);
-console.log(settings.visitedUrls);
-
 function loadLocalWallpapers(){
-  for(var i = 0; i < settings.localImg.length; i++){
-    addWallpaperToContent(settings.localImg[i]);
+  settings.loadLocalImages();
+  for(var i = 0; i < settings.getLocalImages().length; i++){
+    addWallpaperToContent(settings.getLocalImages()[i]);
   }
 }
 
@@ -32,8 +30,8 @@ function createImageName(postTitle){
 function handleJsonResponse(body){
   json = JSON.parse(body);
   dataObjects = json.data.children;
-  console.log(dataObjects.length);
 
+  var duplicates = 0;
   for(var i = 0; i < dataObjects.length; i++){
     var data = dataObjects[i].data;
     data.title = data.title.replace(/([^a-zA-Z\d\s:])+/g, '');
@@ -68,10 +66,11 @@ function handleJsonResponse(body){
           }
         });
       } else{
-        console.log("Duplicate url skipped.");
+        duplicates++;
       }
     }
   }
+  console.log("Skipped " + duplicates + " duplicate urls.");
 }
 
 function scrapeForWallpapers(){
@@ -95,7 +94,12 @@ function splitSrcAndSetWallpaper(src){
 function bindSettingsWindow(settingsWindow){
   settingsWindow.find('#apply').click(function(){
     var options = {};
-    options['savelocation'] = $('.saveLocation').text() + '/';
+    options['savelocation'] = $('.saveLocation').text();
+
+    if (!(/\/^/.test(options['savelocation']) || /\\^/.test(options['savelocation']))){
+      options['savelocation'] += '\\';
+    }
+
     options['loadnsfw'] = $('#loadnsfw').is(':checked');
     options['subredditlist'] = ['wallpaper', 'wallpapers']; // TODO: append all selected subreddits.
     var dimensions = [];
@@ -111,8 +115,8 @@ function bindSettingsWindow(settingsWindow){
     $('#content').html('');
     loadLocalWallpapers();
   });
+
   settingsWindow.find('#cancel').click(function(){
-    console.log("...");
     $('.popup').remove();
     $('.fadebg').remove();
   });
